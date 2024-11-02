@@ -3,10 +3,11 @@ import { Canvas } from "@react-three/fiber";
 import { Leva } from "leva";
 import Controls from "@experience/Controls";
 import Helpers from "@experience/Helpers";
-import Rover from "@experience/Rover";
 import React from "react";
 import Camera from "@experience/Camera";
 import { Environment } from "@react-three/drei";
+import config from "@experience/config";
+import Model from "@experience/Model";
 
 const Experience = () => {
     const { isDebug } = useDebug();
@@ -28,12 +29,11 @@ const Experience = () => {
                 <Camera />
 
                 <Environment preset="city" />
-                <React.Suspense fallback={null}>
-                    <Rover position={[2, 0, 0]} rotation={[0, -0.2, 0]} />
-                </React.Suspense>
-
                 <ambientLight />
-                <pointLight position={[10, 10, 10]} />
+
+                <React.Suspense fallback={null}>
+                    <Model position={config.sections[0].position} />
+                </React.Suspense>
             </Canvas>
         </div>
     );

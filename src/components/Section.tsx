@@ -2,14 +2,17 @@ import React from "react";
 
 type SectionProps = {
     children: React.ReactNode;
+    contentProps?: React.HTMLAttributes<HTMLDivElement>;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const Section = (props: SectionProps) => {
-    const { children, ...sectionProps } = props;
+    const { children, contentProps, ...sectionProps } = props;
 
     return (
         <section {...sectionProps}>
-            <div className="section-content">{children}</div>
+            <div {...contentProps} className={`section-content ${contentProps?.className}`}>
+                {children}
+            </div>
         </section>
     );
 };

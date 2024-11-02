@@ -1,7 +1,28 @@
 import React from "react";
-import Section from "@/components/Section";
 import Experience from "@pages/home/experience/Experience";
 import useScrollSnap from "react-use-scroll-snap";
+import { Variants } from "framer-motion";
+import { MarkerContextProvider } from "@experience/MarkerContext";
+import { Section1, Section2, Section3 } from "@pages/home/sections";
+
+export const viewAnimation: Variants = {
+    hidden: {
+        opacity: 0,
+        x: -30,
+        transition: {
+            duration: 0.5,
+            delay: 0.3,
+        },
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.5,
+            delay: 0.3,
+        },
+    },
+};
 
 const Home = () => {
     const mainRef = React.useRef<HTMLDivElement>(null);
@@ -9,29 +30,15 @@ const Home = () => {
     useScrollSnap({ ref: mainRef, duration: 200 });
 
     return (
-        <React.Fragment>
+        <MarkerContextProvider>
             <Experience />
 
             <main className="home" ref={mainRef}>
-                <Section>
-                    <div className="w-2/4 flex flex-col gap-7">
-                        <h1 className="poppins-bold text-5xl md:text-7xl leading-tight md:leading-[80px]">
-                            Mars Science Laboratory: Curiosity Rover
-                        </h1>
-                        <p className="text-sm md:text-base">
-                            Part of NASA's Mars Science Laboratory mission, at the time of launch, Curiosity was the
-                            largest and most capable rover ever sent to Mars at that time.
-                        </p>
-                    </div>
-                </Section>
-                <Section>
-                    <h1>Speed</h1>
-                </Section>
-                <Section>
-                    <h1>game</h1>
-                </Section>
+                <Section1 />
+                <Section2 />
+                <Section3 />
             </main>
-        </React.Fragment>
+        </MarkerContextProvider>
     );
 };
 

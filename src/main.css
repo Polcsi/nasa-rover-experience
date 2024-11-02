@@ -24,6 +24,14 @@ body {
     @apply fixed top-0 left-0 w-screen h-screen z-10;
 }
 
+.grab {
+    cursor: grab;
+}
+
+.grabbing {
+    cursor: grabbing;
+}
+
 /* 
     Home
 */
@@ -35,11 +43,11 @@ body {
 */
 
 section {
-    @apply text-4 flex items-center h-screen relative justify-center;
+    @apply text-4 flex items-center h-screen relative justify-center py-10;
 }
 
 section:nth-child(even) {
-    @apply bg-3;
+    @apply bg-1;
 }
 
 section:nth-child(odd) {
