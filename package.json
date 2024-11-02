@@ -19,10 +19,13 @@
     "i18next-http-backend": "^2.6.2",
     "leva": "^0.9.35",
     "path": "^0.12.7",
+    "r3f-perf": "^7.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^15.1.0",
     "react-router-dom": "^6.27.0",
+    "react-use-scroll-snap": "^1.0.0",
+    "tailwind-merge": "^2.5.4",
     "three": "^0.170.0"
   },
   "devDependencies": {
