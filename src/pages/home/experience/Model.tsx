@@ -114,6 +114,7 @@ type GLTFResult = GLTF & {
         SAM_0: THREE.Mesh;
         sundial_0: THREE.Mesh;
         Ground: THREE.Mesh;
+        Terrain: THREE.Mesh;
     };
     materials: {
         ["tex_02.004"]: THREE.MeshStandardMaterial;
@@ -129,9 +130,6 @@ type GLTFResult = GLTF & {
     };
 };
 
-type ActionName = "Take 01" | "Prepare";
-type GLTFActions = Record<ActionName, THREE.AnimationAction>;
-
 const Model = (props: JSX.IntrinsicElements["group"]) => {
     const { t } = useTranslation("rover");
     const groupRef = useRef<THREE.Group>(null);
@@ -140,6 +138,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
     /* 
         Textures
     */
+
+    // Ground Texture
     const bakedTexture = useLoader(THREE.TextureLoader, config.textures.ground);
 
     bakedTexture.flipY = false;
@@ -149,41 +149,66 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
         map: bakedTexture,
     });
 
+    // Terrain Texture
+    const bakedTerrainTexture = useLoader(THREE.TextureLoader, config.textures.terrain);
+
+    bakedTerrainTexture.flipY = false;
+    bakedTerrainTexture.colorSpace = THREE.SRGBColorSpace;
+
+    const bakedTerrainMaterial = new THREE.MeshBasicMaterial({
+        map: bakedTerrainTexture,
+    });
+
     /* 
         End Textures
     */
 
-    // const { ref, actions, names } = useAnimations(animations);
-    const { actions, names } = useAnimations<GLTFActions>(animations, groupRef);
+    const { actions, names } = useAnimations(animations, groupRef);
 
     const [section] = useScroll();
 
     const isSecondSection = React.useMemo(() => section === 1, [section]);
 
-    React.useEffect(() => {
-        actions[names[1]].play();
+    React.useLayoutEffect(() => {
+        switch (section) {
+            case 0:
+                actions[names[1]]?.play();
+                actions[names[2]].enabled = false;
+                break;
+            case 1:
+                if (!actions[names[1]]?.isRunning()) {
+                    actions[names[1]]?.reset().play();
+                }
 
-        return () => {
-            actions[names[1]]?.fadeOut(0.5);
-        };
-    }, [actions, names]);
+                actions[names[2]].enabled = false;
+                break;
+            case 2:
+                // actions[names[1]].stop();
+                actions[names[2]].enabled = true;
+                actions[names[2]].loop = THREE.LoopOnce;
+
+                actions[names[1]]?.crossFadeTo(actions[names[2]] as THREE.AnimationAction, 2, true).play();
+                actions[names[2]].clampWhenFinished = true;
+                break;
+        }
+    }, [actions, names, section]);
 
     React.useLayoutEffect(() => {
         switch (section) {
             case 0:
                 gsap.to(groupRef.current!.position, {
-                    x: config.sections[0].position.x,
-                    y: config.sections[0].position.y,
-                    z: config.sections[0].position.z,
+                    x: config.sections[0].scene.position.x,
+                    y: config.sections[0].scene.position.y,
+                    z: config.sections[0].scene.position.z,
                     duration: 0.8,
                     ease: "power2.inOut",
                 });
                 break;
             case 1:
                 gsap.to(groupRef.current!.position, {
-                    x: config.sections[1].position.x,
-                    y: config.sections[1].position.y,
-                    z: config.sections[1].position.z,
+                    x: config.sections[1].scene.position.x,
+                    y: config.sections[1].scene.position.y,
+                    z: config.sections[1].scene.position.z,
                     duration: 0.8,
                     ease: "power2.inOut",
                 });
@@ -1387,10 +1412,18 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                 </group>
             </group>
             <mesh
+                visible={section !== 2}
                 name="Ground"
                 geometry={nodes.Ground.geometry}
                 position={[0, -0.2287, 0]}
                 material={bakedGroundMaterial}
+            />
+            <mesh
+                visible={section === 2}
+                name="Terrain"
+                material={bakedTerrainMaterial}
+                geometry={nodes.Terrain.geometry}
+                position={[0, -0.0293, 0]}
             />
         </group>
     );

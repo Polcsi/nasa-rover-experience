@@ -13,7 +13,7 @@ const Navbar = () => {
     });
 
     return (
-        <nav className="fixed top-0 left-0 z-30 w-screen h-16 flex justify-center items-center">
+        <nav className="fixed top-0 left-0 z-10 w-screen h-16 flex justify-center items-center">
             <div className="section-content text-4 flex flex-row justify-between">
                 <div>
                     <h1 className="poppins-extrabold tracking-widest uppercase text-xl">{t("curiosity-rover")}</h1>

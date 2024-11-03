@@ -1,7 +1,29 @@
 import { PerspectiveCamera } from "@react-three/drei";
+import { useControls } from "leva";
+import config from "@experience/config";
 
 const Camera = () => {
-    return <PerspectiveCamera position={[3, 3, 5]} makeDefault far={15} />;
+    const { far, near } = useControls(
+        "Camera",
+        {
+            far: {
+                value: config.camera.far,
+                min: 0,
+                step: 1,
+                max: 100,
+            },
+            near: {
+                value: config.camera.near,
+                min: -10,
+                max: 10,
+                step: 0.001,
+            },
+        },
+        {
+            collapsed: true,
+        },
+    );
+    return <PerspectiveCamera position={config.camera.position} makeDefault far={far} near={near} />;
 };
 
 export default Camera;
