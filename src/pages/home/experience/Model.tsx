@@ -7,6 +7,7 @@ import useScroll from "@/hooks/useScrollThree";
 import gsap from "gsap";
 import Marker from "./Marker";
 import { useLoader } from "@react-three/fiber";
+import { useTranslation } from "react-i18next";
 
 type GLTFResult = GLTF & {
     nodes: {
@@ -132,6 +133,7 @@ type ActionName = "Take 01" | "Prepare";
 type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 
 const Model = (props: JSX.IntrinsicElements["group"]) => {
+    const { t } = useTranslation("rover");
     const groupRef = useRef<THREE.Group>(null);
     const { nodes, materials, animations } = useGLTF(config.model) as GLTFResult;
 
@@ -202,8 +204,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                             >
                                 <Marker
                                     id={3}
-                                    title="X-band Earth Link"
-                                    description="Transmitting data directly to and from Earth. Telecommunication included a small deep space transponder on the descent stage and a solid-state power amplifier on the rover for X-band."
+                                    title={t("sections.2.parts.3.title")}
+                                    description={t("sections.2.parts.3.description")}
                                     hidden={!isSecondSection}
                                 >
                                     3
@@ -292,8 +294,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                                     >
                                         <Marker
                                             id={2}
-                                            title="Robotic Arm"
-                                            description="The 7-foot-long (2.1 meters) robotic arm can move a lot like your arm. Its shoulder, elbow. and wrist 'joints' offer maximum flexibility. Using the arm, the rover works as a human geologist: holding and using science tools with its 'hand,' or turret. The 'hand tools' extract cores from rocks, take microscopic images. and analyze the elemental and mineral composition of Martian rocks and soil."
+                                            title={t("sections.2.parts.2.title")}
+                                            description={t("sections.2.parts.2.description")}
                                             hidden={!isSecondSection}
                                         >
                                             2
@@ -348,8 +350,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                                             >
                                                 <Marker
                                                     id={7}
-                                                    title="Mars Hand Lens Imager (MAHLI)"
-                                                    description="MAHLI is a camera on the rover's robotic arm, and acquires microscopic images of rock and regolith.  The 'hand tools' extract cores from rocks, take microscopic images. and analyze the elemental and mineral composition of Martian rocks and soil."
+                                                    title={t("sections.2.parts.7.title")}
+                                                    description={t("sections.2.parts.7.description")}
                                                     hidden={!isSecondSection}
                                                 >
                                                     7
@@ -683,8 +685,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                                             >
                                                 <Marker
                                                     id={1}
-                                                    title="Mast Camera"
-                                                    description="This is the rover head. The Mastcam system provides multiple spectra and true-color imaging with two cameras. The cameras can take true-color images at 1600×1200 pixels and up to 10 frames per second hardware-compressed video at 720p (1280×720)."
+                                                    title={t("sections.2.parts.1.title")}
+                                                    description={t("sections.2.parts.1.description")}
                                                     hidden={!isSecondSection}
                                                 >
                                                     1
@@ -937,8 +939,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                                 >
                                     <Marker
                                         id={4}
-                                        title="Suspension"
-                                        description="Like NASA's previous rovers, Perseverance uses a 'rocker-bogie' suspension system . The suspension system connects the wheels to the rover and controls how the rover interacts with the Martian terrain."
+                                        title={t("sections.2.parts.4.title")}
+                                        description={t("sections.2.parts.4.description")}
                                         hidden={!isSecondSection}
                                     >
                                         4
@@ -1071,8 +1073,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                                                 >
                                                     <Marker
                                                         id={5}
-                                                        title="Wheels"
-                                                        description="Curiosity is equipped with six 50 cm (20 in) diameter wheels in a rocker-bogie suspension. Engineers redesigned the Mars 2020 Perseverance rover's wheels to be more robust, due to wear and tear the Curiosity rover wheels endured while driving over sharp, pointy rocks. The four-wheel steering also lets the rover swerve and curve, making arcing turns."
+                                                        title={t("sections.2.parts.5.title")}
+                                                        description={t("sections.2.parts.5.description")}
                                                         hidden={!isSecondSection}
                                                     >
                                                         5
@@ -1172,8 +1174,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                             >
                                 <Marker
                                     id={8}
-                                    title="Antenna UHF"
-                                    description="Curiosity is equipped with significant telecommunication redundancy by several means: an X band transmitter and receiver that can communicate directly with Earth, and an Ultra high frequency (UHF) Electra-Lite software-defined radio for communicating with Mars orbiters. Main job is transmitting data to Earth through Mars orbiters"
+                                    title={t("sections.2.parts.8.title")}
+                                    description={t("sections.2.parts.8.description")}
                                     hidden={!isSecondSection}
                                 >
                                     8
@@ -1248,8 +1250,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                             >
                                 <Marker
                                     id={9}
-                                    title="Sample Handling"
-                                    description="The Perseverance rover is the first mission to demonstrate gathering samples from Martian rocks and soil using its drill. The rover stores the sample cores in tubes on the Martian surface. This sample caching process could potentially pave the way for future missions to collect the samples and return them to Earth for intensive laboratory analysis."
+                                    title={t("sections.2.parts.9.title")}
+                                    description={t("sections.2.parts.9.description")}
                                     hidden={!isSecondSection}
                                 >
                                     9
@@ -1351,8 +1353,8 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                             <group name="RTG" position={[0, 1.2595, 0.2642]} userData={{ name: "RTG" }}>
                                 <Marker
                                     id={6}
-                                    title="Power source"
-                                    description="For electrical power, Perseverance carries a radioisotope power system (RPS). This system produces a dependable electricity flow using the heat of plutonium-238's radioactive decay as its 'fuel.' The power source, called a Multi-Mission Radioisotope Thermoelectric Generator (MMRTG), has a 14-year operational lifetime."
+                                    title={t("sections.2.parts.6.title")}
+                                    description={t("sections.2.parts.6.description")}
                                     hidden={!isSecondSection}
                                 >
                                     6

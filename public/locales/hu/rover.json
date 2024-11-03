@@ -1,0 +1,54 @@
+{
+    "curiosity-rover": "Curiosity Rover",
+    "sections": {
+        "1": {
+            "title": "Mars Tudományos Laboratórium: Curiosity Rover",
+            "content": "A NASA Mars Science Laboratory küldetésének része, a Curiosity volt a legnagyobb és legtehetősebb rover, amelyet akkoriban a Marsra küldtek."
+        },
+        "2": {
+            "title": "Találkozz Curiosity-val",
+            "content": "A Curiosity egy autó méretű rover, amelyet a Marson található Gale kráter felfedezésére terveztek a NASA Mars Science Laboratory küldetésének részeként. A Curiosity a Canaveral-fokról indult 2011. november 26-án, 15:02 UTC-kor, és 2012. augusztus 6-án, 05:17 UTC-kor landolt az Aeolis Paluson, a Marson található Gale-ben.",
+            "parts": {
+                "1": {
+                    "title": "Mast Camera",
+                    "description": "Ez a rover feje. A Mastcam rendszer több spektrumú és valódi színt biztosít két kamerával. A kamerák 1600 × 1200 pixel felbontású, színhű képeket és akár 10 képkocka/másodperc sebességű, hardveresen tömörített videót készítenek. 720p-nél (1280×720)."
+                },
+                "2": {
+                    "title": "Robotkar",
+                    "description": "A 7 láb hosszú (2,1 méter) robotkar nagyjából úgy tud mozogni, mint az Ön karja. Válla, könyöke és csuklói 'ízületei' maximális rugalmasságot biztosítanak. A kar használatával a rover embergeológusként működik : tudományos eszközök tartása és használata a 'kézi' vagy a torony segítségével A 'kézi szerszámok' kivonják a magokat a kőzetekből, és elemezzék a marsi kőzetek és a talaj elemi és ásványi összetételét."
+                },
+                "3": {
+                    "title": "X-band Earth Link",
+                    "description": "Adatok továbbítása közvetlenül a Földre és a Földről. A telekommunikáció része volt egy kis mélyűr-transzponder a süllyedési szakaszon és egy szilárdtest teljesítményerősítő a roveren az X-sávhoz."
+                },
+                "4": {
+                    "title": "Felfüggesztés",
+                    "description": "A NASA korábbi roverjeihez hasonlóan a Perseverance is 'rocker-forgóvázas' felfüggesztési rendszert használ. A felfüggesztési rendszer összeköti a kerekeket a roverrel, és szabályozza, hogy a rover hogyan kommunikáljon a marsi tereppel."
+                },
+                "5": {
+                    "title": "Kerekek",
+                    "description": "A Curiosity hat darab 50 cm-es (20 hüvelyk) átmérőjű kerékkel van felszerelve rocker-forgóvázas felfüggesztésben. A mérnökök újratervezték a Mars 2020 Perseverance rover kerekeit, hogy robusztusabbak legyenek, mivel a Curiosity Rover kerekei vezetés közben elviselték a kopást és elhasználódást. éles, hegyes sziklák felett A négykerék-kormány lehetővé teszi a rover kanyarodását és íves kanyarokat is."
+                },
+                "6": {
+                    "title": "Áramforrás",
+                    "description": "Az elektromos áramhoz a Perseverance radioizotópos energiarendszert (RPS) hordoz. Ez a rendszer megbízható elektromos áramot állít elő, a plutónium-238 radioaktív bomlásának hőjét használva 'üzemanyagként'. Az energiaforrás, az úgynevezett Multi-Mission Radioisotope Thermoelectric Generator (MMRTG), 14 éves élettartammal rendelkezik."
+                },
+                "7": {
+                    "title": "Mars Hand Lens Imager (MAHLI)",
+                    "description": "A MAHLI egy kamera a rover robotkarján, és mikroszkopikus képeket készít a sziklákról és a regolitokról. A 'kéziszerszámok' kivonják a magokat a kőzetekből, mikroszkopikus képeket készítenek. és elemzik a marsi kőzetek és talaj elemi és ásványi összetételét ."
+                },
+                "8": {
+                    "title": "Antenna UHF",
+                    "description": "A Curiosity jelentős telekommunikációs redundanciával van felszerelve több eszközzel: egy X sávos adóval és vevővel, amely közvetlenül kommunikálhat a Földdel, valamint egy Ultra nagy frekvenciájú (UHF) Electra-Lite szoftverrel definiált rádióval a Mars-pályákkal való kommunikációhoz. A fő feladat az adatok továbbítása a Földre Mars-pályákon keresztül"
+                },
+                "9": {
+                    "title": "Mintakezelés",
+                    "description": "A Perseverance rover az első küldetés, amely bemutatja, hogy a fúrójával mintákat gyűjtenek marsi kőzetekből és talajból. A rover a mintamagokat a Mars felszínén lévő csövekben tárolja. Ez a minta gyorsítótárazási folyamata potenciálisan megnyithatja az utat a jövőbeli küldetések előtt összegyűjteni a mintákat és visszavinni a Földre intenzív laboratóriumi elemzés céljából."
+                }
+            }
+        },
+        "3": {
+            "explore-mars": "Fedezd fel a Marsot"
+        }
+    }
+}

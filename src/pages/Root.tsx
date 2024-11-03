@@ -1,13 +1,18 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import PageLoading from "@pages/PageLoading";
+import Navbar from "@/components/Navbar";
+import { NextUIProvider } from "@nextui-org/react";
 
 const Root = () => {
-  return (
-    <React.Suspense fallback={<PageLoading />}>
-      <Outlet />
-    </React.Suspense>
-  );
+    return (
+        <NextUIProvider>
+            <React.Suspense fallback={<PageLoading />}>
+                <Navbar />
+                <Outlet />
+            </React.Suspense>
+        </NextUIProvider>
+    );
 };
 
 export default Root;

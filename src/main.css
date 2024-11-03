@@ -38,6 +38,10 @@ body {
 .home {
 }
 
+.key {
+    @apply size-10 ring-1 ring-fourth uppercase grid place-items-center text-base;
+}
+
 /* 
     Section Styles
 */

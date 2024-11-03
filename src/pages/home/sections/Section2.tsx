@@ -5,6 +5,7 @@ import { AnimatePresence, motion, Variants } from "framer-motion";
 import { viewAnimation } from "@pages/home/sections/animations";
 import { useMarkerContext } from "@experience/MarkerContext";
 import FixedSection from "@/components/FixedSection";
+import { useTranslation } from "react-i18next";
 
 const variants: Variants = {
     hidden: {
@@ -27,6 +28,7 @@ const variants: Variants = {
 
 const Section2 = () => {
     const { activeMarker, resetMarker } = useMarkerContext();
+    const { t } = useTranslation();
 
     return (
         <FixedSection
@@ -40,23 +42,18 @@ const Section2 = () => {
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-col gap-3">
                             <h1 className="poppins-bold text-2xl md:text-5xl leading-tight md:leading-[60px]">
-                                Meet Curiosity
+                                {t("rover:sections.2.title")}
                             </h1>
                             <hr />
                         </div>
-                        <p className="text-sm">
-                            Curiosity is a car-sized rover designed to explore the crater Gale on Mars as part of NASA's
-                            Mars Science Laboratory mission. Curiosity was launched from Cape Canaveral on November 26,
-                            2011, at 15:02 UTC and landed on Aeolis Palus inside Gale on Mars on August 6, 2012, 05:17
-                            UTC.
-                        </p>
+                        <p className="text-sm ">{t("rover:sections.2.content")}</p>
                     </div>
                     <Link
                         to="https://science.nasa.gov/mission/mars-2020-perseverance/rover-components/"
-                        className="w-full outline-none"
+                        className="outline-none w-min"
                         target="_blank"
                     >
-                        <Button>Learn more</Button>
+                        <Button type="button">{t("common:learn-more")}</Button>
                     </Link>
                 </div>
             </motion.div>
@@ -96,7 +93,7 @@ const Section2 = () => {
                                 <hr />
                             </div>
                             <p className="text-sm poppins-light">{activeMarker.description}</p>
-                            <Button onClick={resetMarker}>Dismiss</Button>
+                            <Button onClick={resetMarker}>{t("common:dismiss")}</Button>
                         </div>
                     </motion.div>
                 ) : null}
