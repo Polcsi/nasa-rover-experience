@@ -1,5 +1,5 @@
 import React from "react";
-import useScroll from "@/hooks/useScroll";
+import useScroll from "@/hooks/useScrollThree";
 import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";

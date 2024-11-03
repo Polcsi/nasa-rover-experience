@@ -1,5 +1,5 @@
 import React from "react";
-import useScroll from "@/hooks/useScroll";
+import useScroll from "@/hooks/useScrollThree";
 import { CameraControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 
@@ -55,7 +55,7 @@ const Controls = () => {
             }}
             onStart={handleStart}
             onEnd={handleEnd}
-            maxPolarAngle={Math.PI / 2}
+            maxPolarAngle={Math.PI / 2.4}
         />
     );
 };

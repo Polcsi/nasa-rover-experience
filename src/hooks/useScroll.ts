@@ -1,15 +1,18 @@
 import React from "react";
-import { useThree } from "@react-three/fiber";
 
-const useScroll = () => {
-    const { size } = useThree();
+const useScrollThree = () => {
     const [section, setSection] = React.useState<number>(0);
+    const [rawScrollPosition, setRawScrollPosition] = React.useState<number>(0);
 
     React.useEffect(() => {
         const handleScroll = () => {
             const scrollY = window.scrollY;
 
-            const newSection = Math.round(scrollY / size.height);
+            const newSection = Math.round(scrollY / window.innerHeight);
+
+            React.startTransition(() => {
+                setRawScrollPosition(scrollY / window.innerHeight);
+            });
 
             React.startTransition(() => {
                 setSection(newSection);
@@ -21,9 +24,9 @@ const useScroll = () => {
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, [size]);
+    }, []);
 
-    return [section];
+    return [section, rawScrollPosition];
 };
 
-export default useScroll;
+export default useScrollThree;

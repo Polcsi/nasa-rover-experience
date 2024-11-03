@@ -5,25 +5,28 @@ type ProviderParams = {
     children?: ReactElement[] | ReactElement | undefined;
 };
 
-const useContextFunc = () => {
-    const [activeMarker, setActiveMarker] = React.useState<Marker>({
-        id: 0,
-        title: "",
-        description: "",
-    });
+const DEFAULT_MARKER: Marker = {
+    id: 0,
+    title: "",
+    description: "",
+} as const;
 
-    return { activeMarker, setActiveMarker };
+const useContextFunc = () => {
+    const [activeMarker, setActiveMarker] = React.useState<Marker>(DEFAULT_MARKER);
+
+    const resetMarker = () => {
+        setActiveMarker(DEFAULT_MARKER);
+    };
+
+    return { activeMarker, setActiveMarker, resetMarker };
 };
 
 type UseMarkerContextType = ReturnType<typeof useContextFunc>;
 
 const initContextState: UseMarkerContextType = {
-    activeMarker: {
-        id: 0,
-        title: "",
-        description: "",
-    },
+    activeMarker: DEFAULT_MARKER,
     setActiveMarker: () => {},
+    resetMarker: () => {},
 };
 
 const MarkerContext = createContext<UseMarkerContextType>(initContextState);

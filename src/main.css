@@ -54,7 +54,7 @@ section:nth-child(odd) {
     @apply bg-2;
 }
 
-section > .section-content {
+.section-content {
     @apply max-w-[var(--content-width)] w-[95%];
 }
 

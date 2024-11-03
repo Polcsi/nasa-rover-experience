@@ -2,6 +2,9 @@ import * as THREE from "three";
 
 const config = {
     model: "/models/curiosity_rover.glb",
+    textures: {
+        ground: "/textures/baked_ground.jpg",
+    },
     sections: [
         {
             index: 0,

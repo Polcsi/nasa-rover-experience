@@ -1,10 +1,10 @@
-import Section from "@/components/Section";
 import { Button } from "@nextui-org/button";
 import { Link } from "react-router-dom";
 import { PiHandGrabbingBold } from "react-icons/pi";
-import { motion, Variants } from "framer-motion";
-import { viewAnimation } from "@pages/home/Home";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import { viewAnimation } from "@pages/home/sections/animations";
 import { useMarkerContext } from "@experience/MarkerContext";
+import FixedSection from "@/components/FixedSection";
 
 const variants: Variants = {
     hidden: {
@@ -26,16 +26,17 @@ const variants: Variants = {
 };
 
 const Section2 = () => {
-    const { activeMarker } = useMarkerContext();
+    const { activeMarker, resetMarker } = useMarkerContext();
 
     return (
-        <Section
+        <FixedSection
+            index={1}
             contentProps={{
                 className: "flex flex-row justify-between",
             }}
         >
             <motion.div initial="hidden" whileInView="visible" variants={viewAnimation} className="w-1/4 h-full">
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-5 pointer-events-auto">
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-col gap-3">
                             <h1 className="poppins-bold text-2xl md:text-5xl leading-tight md:leading-[60px]">
@@ -50,7 +51,11 @@ const Section2 = () => {
                             UTC.
                         </p>
                     </div>
-                    <Link to="https://science.nasa.gov/mission/msl-curiosity/" className="w-full">
+                    <Link
+                        to="https://science.nasa.gov/mission/mars-2020-perseverance/rover-components/"
+                        className="w-full outline-none"
+                        target="_blank"
+                    >
                         <Button>Learn more</Button>
                     </Link>
                 </div>
@@ -76,22 +81,27 @@ const Section2 = () => {
                     <PiHandGrabbingBold className="text-3 text-3xl" />
                 </motion.div>
             </motion.div>
-            <motion.div
-                initial="hidden"
-                whileInView="visible"
-                variants={variants}
-                className="bg-2 py-5 px-5 w-64 rounded-lg shadow-lg max-h-min"
-            >
-                <div className="flex flex-col gap-3">
-                    <div className="flex flex-col gap-2">
-                        <h1 className="poppins-medium text-2xl">{activeMarker.title}</h1>
-                        <hr />
-                    </div>
-                    <p className="text-sm poppins-light">{activeMarker.description}</p>
-                    <Button>Dismiss</Button>
-                </div>
-            </motion.div>
-        </Section>
+            <AnimatePresence>
+                {activeMarker.id !== 0 ? (
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        exit="hidden"
+                        variants={variants}
+                        className="bg-2 py-5 px-5 w-64 rounded-lg shadow-lg h-min pointer-events-auto"
+                    >
+                        <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-2">
+                                <h1 className="poppins-medium text-2xl">{activeMarker.title}</h1>
+                                <hr />
+                            </div>
+                            <p className="text-sm poppins-light">{activeMarker.description}</p>
+                            <Button onClick={resetMarker}>Dismiss</Button>
+                        </div>
+                    </motion.div>
+                ) : null}
+            </AnimatePresence>
+        </FixedSection>
     );
 };
 

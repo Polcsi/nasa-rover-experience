@@ -1,16 +1,15 @@
-import Section from "@/components/Section";
+import FixedSection from "@/components/FixedSection";
 import { motion } from "framer-motion";
-import { viewAnimation } from "@pages/home/Home";
+import { viewAnimation } from "@pages/home/sections/animations";
 
 const Section1 = () => {
     return (
-        <Section>
+        <FixedSection index={0}>
             <motion.div
                 className="w-2/4 flex flex-col gap-7"
                 initial="hidden"
                 whileInView="visible"
                 variants={viewAnimation}
-                viewport={{ margin: `-${window.innerHeight / 2}px` }}
             >
                 <h1 className="poppins-bold text-5xl md:text-7xl leading-tight md:leading-[80px]">
                     Mars Science Laboratory: Curiosity Rover
@@ -20,7 +19,7 @@ const Section1 = () => {
                     most capable rover ever sent to Mars at that time.
                 </p>
             </motion.div>
-        </Section>
+        </FixedSection>
     );
 };
 
