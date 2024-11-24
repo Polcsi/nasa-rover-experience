@@ -23,6 +23,7 @@ const Navbar = () => {
                         variant="bordered"
                         defaultSelectedKeys={[i18n.language]}
                         className="w-20"
+                        disallowEmptySelection
                         classNames={{
                             trigger: "text-4 !border-fourth focus-within:!border-blue-500",
                             base: "text-4",

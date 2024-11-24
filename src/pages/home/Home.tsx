@@ -1,7 +1,7 @@
 import React from "react";
 import Experience from "@pages/home/experience/Experience";
 import useScrollSnap from "react-use-scroll-snap";
-import { MarkerContextProvider } from "@experience/MarkerContext";
+import { MarkerContextProvider } from "@/pages/home/experience/marker/MarkerContext";
 import BackgroundSection from "@/components/BackgroundSection";
 import { Section1, Section2, Section3 } from "@pages/home/sections";
 

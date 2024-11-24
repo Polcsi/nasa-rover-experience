@@ -1,12 +1,7 @@
 import React from "react";
 import { Html } from "@react-three/drei";
-import { useMarkerContext } from "@experience/MarkerContext";
-
-export type Marker = {
-    id: number;
-    title: string;
-    description: string;
-};
+import { useMarkerContext } from "@/pages/home/experience/marker/MarkerContext";
+import type { Marker } from "@experience/marker/types";
 
 type MarkerProps = {
     children: React.ReactNode;

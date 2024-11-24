@@ -1,5 +1,5 @@
 import React, { ReactElement, createContext, useContext } from "react";
-import { type Marker } from "@experience/Marker";
+import { type Marker } from "@/pages/home/experience/marker/types";
 
 type ProviderParams = {
     children?: ReactElement[] | ReactElement | undefined;

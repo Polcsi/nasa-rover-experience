@@ -1,173 +1,41 @@
 import * as THREE from "three";
 import React, { useRef } from "react";
 import { useAnimations, useGLTF } from "@react-three/drei";
-import { GLTF } from "three-stdlib";
 import config from "@experience/config";
 import useScroll from "@/hooks/useScrollThree";
 import gsap from "gsap";
-import Marker from "./Marker";
-import { useLoader } from "@react-three/fiber";
+import Marker from "@experience/marker/Marker";
 import { useTranslation } from "react-i18next";
+import type { CuriosityRoverGLTF } from "@experience/scene/types";
+import Ground from "./Ground";
+import Terrain from "./Terrain";
+import Bounds from "./Bounds";
+import { Physics } from "@react-three/rapier";
+import { useControls } from "leva";
+import useDebug from "@/hooks/useDebug";
 
-type GLTFResult = GLTF & {
-    nodes: {
-        antenna_HG_01_0: THREE.Mesh;
-        antenna_HG_03_0: THREE.Mesh;
-        arm_01001_0: THREE.Mesh;
-        arm_01001_1: THREE.Mesh;
-        arm_02001_0: THREE.Mesh;
-        arm_02001_1: THREE.Mesh;
-        arm_02001_2: THREE.Mesh;
-        arm_02001_3: THREE.Mesh;
-        arm_03001_0: THREE.Mesh;
-        arm_03001_1: THREE.Mesh;
-        arm_03001_2: THREE.Mesh;
-        arm_03001_3: THREE.Mesh;
-        arm_04001_0: THREE.Mesh;
-        arm_04001_1: THREE.Mesh;
-        APXS_0: THREE.Mesh;
-        arm_05_head001_0: THREE.Mesh;
-        bit_01001_0: THREE.Mesh;
-        CHIMERA_0: THREE.Mesh;
-        CHIMERA_1: THREE.Mesh;
-        Drill_0: THREE.Mesh;
-        Drill_1: THREE.Mesh;
-        Dust_Removal_Tool_0: THREE.Mesh;
-        MAHLI_0: THREE.Mesh;
-        MAHLI_LED_01_0: THREE.Mesh;
-        MAHLI_LED_02_0: THREE.Mesh;
-        MAHLI_LED_03_0: THREE.Mesh;
-        MAHLI_LED_04_0: THREE.Mesh;
-        MAHLI_lens_cover_0: THREE.Mesh;
-        MAHLI_cal_target_0: THREE.Mesh;
-        bit_02_0: THREE.Mesh;
-        bit_03_0: THREE.Mesh;
-        body_0: THREE.Mesh;
-        body_1: THREE.Mesh;
-        body_2: THREE.Mesh;
-        body_3: THREE.Mesh;
-        body_4: THREE.Mesh;
-        body_5: THREE.Mesh;
-        lens_covers_front_0: THREE.Mesh;
-        lens_covers_rear_0: THREE.Mesh;
-        mast_01000_0: THREE.Mesh;
-        mast_01001_0: THREE.Mesh;
-        mast_02001_0: THREE.Mesh;
-        ChemCam_0: THREE.Mesh;
-        mast_03001_0: THREE.Mesh;
-        MastCam_0: THREE.Mesh;
-        NavCam_0: THREE.Mesh;
-        suspension_arm_B2_L_0: THREE.Mesh;
-        suspension_arm_B2_L_1: THREE.Mesh;
-        suspension_steer_B_L_0: THREE.Mesh;
-        suspension_steer_B_L_1: THREE.Mesh;
-        wheel_03_L_0: THREE.Mesh;
-        wheel_02_L_0: THREE.Mesh;
-        suspension_arm_B_L_0: THREE.Mesh;
-        suspension_arm_B_L_1: THREE.Mesh;
-        suspension_steer_F_L_0: THREE.Mesh;
-        suspension_steer_F_L_1: THREE.Mesh;
-        wheel_01_L_0: THREE.Mesh;
-        suspension_arm_F_L_0: THREE.Mesh;
-        suspension_arm_F_L_1: THREE.Mesh;
-        suspension_axel_L2_0: THREE.Mesh;
-        suspension_axel_L_0: THREE.Mesh;
-        suspension_rod_L_0: THREE.Mesh;
-        suspension_arm_B2_R_0: THREE.Mesh;
-        suspension_arm_B2_R_1: THREE.Mesh;
-        suspension_steer_B_R_0: THREE.Mesh;
-        suspension_steer_B_R_1: THREE.Mesh;
-        wheel_03_R_0: THREE.Mesh;
-        wheel_02_R_0: THREE.Mesh;
-        suspension_arm_B_R_0: THREE.Mesh;
-        suspension_arm_B_R_1: THREE.Mesh;
-        suspension_steer_F_R_0: THREE.Mesh;
-        suspension_steer_F_R_1: THREE.Mesh;
-        wheel_01_R_0: THREE.Mesh;
-        suspension_arm_F_R_0: THREE.Mesh;
-        suspension_arm_F_R_1: THREE.Mesh;
-        suspension_axel_R2_0: THREE.Mesh;
-        suspension_axel_R_0: THREE.Mesh;
-        suspension_rod_R_0: THREE.Mesh;
-        suspension_xmember_0: THREE.Mesh;
-        suspension_xmember_1: THREE.Mesh;
-        antenna_LG_0: THREE.Mesh;
-        antenna_UHF_0: THREE.Mesh;
-        body001_0: THREE.Mesh;
-        Chassis_0: THREE.Mesh;
-        Chassis_1: THREE.Mesh;
-        Chassis_2: THREE.Mesh;
-        Chassis_3: THREE.Mesh;
-        CheMin_0: THREE.Mesh;
-        cover_01_0: THREE.Mesh;
-        cover_02_0: THREE.Mesh;
-        cover_03_0: THREE.Mesh;
-        DAN_L_0: THREE.Mesh;
-        DAN_R_0: THREE.Mesh;
-        ["HazCam_-_front_0"]: THREE.Mesh;
-        ["HazCam_-_rear_0"]: THREE.Mesh;
-        MARDI001_0: THREE.Mesh;
-        RAD_0: THREE.Mesh;
-        radiators_0: THREE.Mesh;
-        REMS_0: THREE.Mesh;
-        RTG_0: THREE.Mesh;
-        SAM_0: THREE.Mesh;
-        sundial_0: THREE.Mesh;
-        Ground: THREE.Mesh;
-        Terrain: THREE.Mesh;
-    };
-    materials: {
-        ["tex_02.004"]: THREE.MeshStandardMaterial;
-        ["tex_03.008"]: THREE.MeshStandardMaterial;
-        ["tex_01.008"]: THREE.MeshStandardMaterial;
-        ["tex_04.004"]: THREE.MeshStandardMaterial;
-        ["tex_05.004"]: THREE.MeshStandardMaterial;
-        ["white_LED.004"]: THREE.MeshStandardMaterial;
-        ["tex_01.009"]: THREE.MeshStandardMaterial;
-        ["parts_AO.004"]: THREE.MeshStandardMaterial;
-        ["tex_03_n.004"]: THREE.MeshStandardMaterial;
-        ["tex_03.009"]: THREE.MeshStandardMaterial;
-    };
-};
-
-const Model = (props: JSX.IntrinsicElements["group"]) => {
+const Scene = (props: JSX.IntrinsicElements["group"]) => {
     const { t } = useTranslation("rover");
     const groupRef = useRef<THREE.Group>(null);
-    const { nodes, materials, animations } = useGLTF(config.model) as GLTFResult;
-
-    /* 
-        Textures
-    */
-
-    // Ground Texture
-    const bakedTexture = useLoader(THREE.TextureLoader, config.textures.ground);
-
-    bakedTexture.flipY = false;
-    bakedTexture.colorSpace = THREE.SRGBColorSpace;
-
-    const bakedGroundMaterial = new THREE.MeshBasicMaterial({
-        map: bakedTexture,
-    });
-
-    // Terrain Texture
-    const bakedTerrainTexture = useLoader(THREE.TextureLoader, config.textures.terrain);
-
-    bakedTerrainTexture.flipY = false;
-    bakedTerrainTexture.colorSpace = THREE.SRGBColorSpace;
-
-    const bakedTerrainMaterial = new THREE.MeshBasicMaterial({
-        map: bakedTerrainTexture,
-    });
-
-    /* 
-        End Textures
-    */
+    const { nodes, materials, animations } = useGLTF(config.model) as CuriosityRoverGLTF;
 
     const { actions, names } = useAnimations(animations, groupRef);
 
     const [section] = useScroll();
 
     const isSecondSection = React.useMemo(() => section === 1, [section]);
+    const { isDebug } = useDebug();
+
+    const { debugPhysics } = useControls(
+        "Physics",
+        {
+            debugPhysics: {
+                value: isDebug,
+                label: "Debug Physics",
+            },
+        },
+        { collapsed: true },
+    );
 
     React.useLayoutEffect(() => {
         switch (section) {
@@ -217,9 +85,9 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
     }, [section]);
 
     return (
-        <group ref={groupRef} {...props}>
-            <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} userData={{ name: "Sketchfab_model" }}>
-                <group name="Root" userData={{ name: "Root" }}>
+        <Physics debug={isDebug}>
+            <group ref={groupRef} {...props}>
+                <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} userData={{ name: "Sketchfab_model" }}>
                     <group name="_root_p" userData={{ name: "_root_p" }}>
                         <group name="body" position={[0, -0.055, 0.8864]} userData={{ name: "body" }}>
                             <group
@@ -1410,25 +1278,14 @@ const Model = (props: JSX.IntrinsicElements["group"]) => {
                         </group>
                     </group>
                 </group>
+                <Ground visible={section !== 2} />
+                <Terrain visible={section === 2} />
+                {section === 2 ? <Bounds /> : null}
             </group>
-            <mesh
-                visible={section !== 2}
-                name="Ground"
-                geometry={nodes.Ground.geometry}
-                position={[0, -0.2287, 0]}
-                material={bakedGroundMaterial}
-            />
-            <mesh
-                visible={section === 2}
-                name="Terrain"
-                material={bakedTerrainMaterial}
-                geometry={nodes.Terrain.geometry}
-                position={[0, -0.0293, 0]}
-            />
-        </group>
+        </Physics>
     );
 };
 
-export default Model;
+export default Scene;
 
 useGLTF.preload(config.model);

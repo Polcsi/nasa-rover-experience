@@ -7,7 +7,7 @@ import React from "react";
 import Camera from "@experience/Camera";
 import { Environment } from "@react-three/drei";
 import config from "@experience/config";
-import Model from "@experience/Model";
+import Scene from "@/pages/home/experience/scene/Scene";
 
 const Experience = () => {
     const { isDebug } = useDebug();
@@ -32,7 +32,7 @@ const Experience = () => {
                     <ambientLight />
 
                     <React.Suspense fallback={null}>
-                        <Model position={config.sections[0].position} />
+                        <Scene position={config.sections[0].scene.position} />
                     </React.Suspense>
                 </Canvas>
             </div>

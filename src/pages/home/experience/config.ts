@@ -6,6 +6,16 @@ const config = {
         ground: "/textures/baked_ground.jpg",
         terrain: "/textures/baked_terrain.jpg",
     },
+    models: {
+        terrain: {
+            size: 40.0789,
+            bounds: {
+                height: 1.8,
+                width: 0.2,
+                position: new THREE.Vector3(0, 0, 0),
+            },
+        },
+    },
     camera: {
         far: 15,
         near: 1.5,
