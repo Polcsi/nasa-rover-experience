@@ -8,7 +8,9 @@
             "@assets/*": ["assets/*"],
             "@components/*": ["components/*"],
             "@hooks/*": ["hooks/*"],
-            "@experience/*": ["pages/home/experience/*"]
+            "@experience/*": ["pages/home/experience/*"],
+            "@marker/*": ["pages/home/experience/marker/*"],
+            "@keyboard/*": ["pages/home/experience/keyboard/*"]
         }
     }
 }

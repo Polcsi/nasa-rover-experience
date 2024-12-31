@@ -14,6 +14,8 @@ export default defineConfig({
             "@components": path.resolve(__dirname, "./src/components/"),
             "@hooks": path.resolve(__dirname, "./src/hooks/"),
             "@experience": path.resolve(__dirname, "./src/pages/home/experience/"),
+            "@marker": path.resolve(__dirname, "./src/pages/home/experience/marker/"),
+            "@keyboard": path.resolve(__dirname, "./src/pages/home/experience/keyboard/"),
         },
     },
     plugins: [react()],

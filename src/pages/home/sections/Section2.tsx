@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { PiHandGrabbingBold } from "react-icons/pi";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { viewAnimation } from "@pages/home/sections/animations";
-import { useMarkerContext } from "@/pages/home/experience/marker/MarkerContext";
+import { useMarkerContext } from "@marker/MarkerContext";
 import FixedSection from "@/components/FixedSection";
 import { useTranslation } from "react-i18next";
 

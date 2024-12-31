@@ -35,11 +35,13 @@ body {
 /* 
     Home
 */
-.home {
-}
 
 .key {
-    @apply size-10 ring-1 ring-fourth uppercase grid place-items-center text-base;
+    @apply size-10 ring-1 ring-fourth uppercase grid place-items-center text-base transition-all duration-200 ease-in-out font-medium outline-none cursor-default;
+}
+
+.active-key {
+    @apply bg-fourth text-2 scale-[0.97];
 }
 
 /* 

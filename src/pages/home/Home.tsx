@@ -1,9 +1,10 @@
 import React from "react";
 import Experience from "@pages/home/experience/Experience";
 import useScrollSnap from "react-use-scroll-snap";
-import { MarkerContextProvider } from "@/pages/home/experience/marker/MarkerContext";
+import { MarkerContextProvider } from "@marker/MarkerContext";
 import BackgroundSection from "@/components/BackgroundSection";
 import { Section1, Section2, Section3 } from "@pages/home/sections";
+import { KeyboardContextProvider } from "@keyboard/KeyboardContext";
 
 const Home = () => {
     const mainRef = React.useRef<HTMLDivElement>(null);
@@ -11,19 +12,21 @@ const Home = () => {
     useScrollSnap({ ref: mainRef, duration: 200 });
 
     return (
-        <MarkerContextProvider>
-            <Experience />
+        <KeyboardContextProvider>
+            <MarkerContextProvider>
+                <Experience />
 
-            <Section1 />
-            <Section2 />
-            <Section3 />
+                <Section1 />
+                <Section2 />
+                <Section3 />
 
-            <main className="home" ref={mainRef}>
-                <BackgroundSection />
-                <BackgroundSection />
-                <BackgroundSection />
-            </main>
-        </MarkerContextProvider>
+                <main className="home" ref={mainRef}>
+                    <BackgroundSection />
+                    <BackgroundSection />
+                    <BackgroundSection />
+                </main>
+            </MarkerContextProvider>
+        </KeyboardContextProvider>
     );
 };
 

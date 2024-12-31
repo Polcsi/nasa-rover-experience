@@ -4,26 +4,29 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import config from "@experience/config";
 import useScroll from "@/hooks/useScrollThree";
 import gsap from "gsap";
-import Marker from "@experience/marker/Marker";
+import Marker from "@marker/Marker";
 import { useTranslation } from "react-i18next";
-import type { CuriosityRoverGLTF } from "@experience/scene/types";
+import { GLTFActions, type CuriosityRoverGLTF } from "@experience/scene/types";
 import Ground from "./Ground";
 import Terrain from "./Terrain";
 import Bounds from "./Bounds";
 import { Physics } from "@react-three/rapier";
 import { useControls } from "leva";
 import useDebug from "@/hooks/useDebug";
+import RoverHitbox from "./RoverHitbox";
 
 const Scene = (props: JSX.IntrinsicElements["group"]) => {
     const { t } = useTranslation("rover");
     const groupRef = useRef<THREE.Group>(null);
     const { nodes, materials, animations } = useGLTF(config.model) as CuriosityRoverGLTF;
 
-    const { actions, names } = useAnimations(animations, groupRef);
+    const { actions, names } = useAnimations<GLTFActions>(animations as GLTFActions[], groupRef);
 
     const [section] = useScroll();
 
     const isSecondSection = React.useMemo(() => section === 1, [section]);
+    const isThirdSection = React.useMemo(() => section === 2, [section]);
+
     const { isDebug } = useDebug();
 
     const { debugPhysics } = useControls(
@@ -40,23 +43,32 @@ const Scene = (props: JSX.IntrinsicElements["group"]) => {
     React.useLayoutEffect(() => {
         switch (section) {
             case 0:
-                actions[names[1]]?.play();
-                actions[names[2]].enabled = false;
+                actions["Prepare"]?.play();
+
+                if (actions["Ready"]) {
+                    actions["Ready"].enabled = false;
+                }
                 break;
             case 1:
-                if (!actions[names[1]]?.isRunning()) {
-                    actions[names[1]]?.reset().play();
+                if (!actions["Prepare"]?.isRunning()) {
+                    actions["Prepare"]?.reset().play();
                 }
 
-                actions[names[2]].enabled = false;
+                if (actions["Ready"]) {
+                    actions["Ready"].enabled = false;
+                }
                 break;
             case 2:
-                // actions[names[1]].stop();
-                actions[names[2]].enabled = true;
-                actions[names[2]].loop = THREE.LoopOnce;
+                if (actions["Ready"]) {
+                    actions["Ready"].enabled = true;
+                    actions["Ready"].loop = THREE.LoopOnce;
+                }
 
-                actions[names[1]]?.crossFadeTo(actions[names[2]] as THREE.AnimationAction, 2, true).play();
-                actions[names[2]].clampWhenFinished = true;
+                actions["Prepare"]?.crossFadeTo(actions["Ready"] as THREE.AnimationAction, 2, true).play();
+
+                if (actions["Ready"]) {
+                    actions["Ready"].clampWhenFinished = true;
+                }
                 break;
         }
     }, [actions, names, section]);
@@ -85,7 +97,8 @@ const Scene = (props: JSX.IntrinsicElements["group"]) => {
     }, [section]);
 
     return (
-        <Physics debug={isDebug}>
+        <Physics debug={debugPhysics} paused={!isThirdSection}>
+            <RoverHitbox />
             <group ref={groupRef} {...props}>
                 <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]} userData={{ name: "Sketchfab_model" }}>
                     <group name="_root_p" userData={{ name: "_root_p" }}>
@@ -1278,8 +1291,9 @@ const Scene = (props: JSX.IntrinsicElements["group"]) => {
                         </group>
                     </group>
                 </group>
+
                 <Ground visible={section !== 2} />
-                <Terrain visible={section === 2} />
+                <Terrain visible={section === 2} position={[0, -0.7, 0]} />
                 {section === 2 ? <Bounds /> : null}
             </group>
         </Physics>

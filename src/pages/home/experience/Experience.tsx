@@ -1,9 +1,9 @@
+import React from "react";
 import useDebug from "@/hooks/useDebug";
 import { Canvas } from "@react-three/fiber";
 import { Leva } from "leva";
 import Controls from "@experience/Controls";
 import Helpers from "@experience/Helpers";
-import React from "react";
 import Camera from "@experience/Camera";
 import { Environment } from "@react-three/drei";
 import config from "@experience/config";

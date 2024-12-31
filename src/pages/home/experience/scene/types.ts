@@ -121,3 +121,9 @@ export type CuriosityRoverGLTF = GLTF & {
         ["tex_03.009"]: THREE.MeshStandardMaterial;
     };
 };
+
+type ActionName = "Take 01" | "Prepare" | "Ready";
+
+export type GLTFActions = THREE.AnimationClip & {
+    name: ActionName;
+};
