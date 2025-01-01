@@ -1,12 +1,16 @@
-import React, { ReactElement, createContext, useContext } from "react";
+import { ReactElement, createContext, useContext } from "react";
 import KeyboardControlsEvent from "@keyboard/KeyboardControlsEvent";
-import type { Controls, Callback } from "@keyboard/types";
+import type { Controls, Callback, KeyboardState } from "@keyboard/types";
 
 type ProviderParams = {
     children?: ReactElement[] | ReactElement | undefined;
 };
 
-const useContextFunc = () => {
+const useContextFunc = (): [
+    (control: Controls, callback: Callback) => void,
+    (control: Controls, callback: Callback) => void,
+    () => KeyboardState,
+] => {
     const sub = (control: Controls, callback: Callback) => {
         KeyboardControlsEvent.getInstace().add(control, callback);
     };
@@ -15,16 +19,20 @@ const useContextFunc = () => {
         KeyboardControlsEvent.getInstace().remove(control, callback);
     };
 
-    React.useEffect(() => {
-        console.log(KeyboardControlsEvent.getInstace());
-    }, []);
+    const getKeys = () => {
+        return KeyboardControlsEvent.getInstace().keys;
+    };
 
-    return [sub, unsub];
+    return [sub, unsub, getKeys];
 };
 
 type UseKeyboardContextType = ReturnType<typeof useContextFunc>;
 
-const initContextState: UseKeyboardContextType = [() => {}, () => {}];
+const initContextState: UseKeyboardContextType = [
+    () => {},
+    () => {},
+    () => ({ forward: false, backward: false, left: false, right: false }),
+];
 const KeyboardContext = createContext<UseKeyboardContextType>(initContextState);
 
 const KeyboardContextProvider = ({ children }: ProviderParams) => {

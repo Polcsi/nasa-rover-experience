@@ -3,7 +3,7 @@ import config from "@experience/config";
 
 const Bounds = () => {
     return (
-        <RigidBody type="fixed" colliders={false} restitution={0.2} friction={0}>
+        <RigidBody type="fixed" colliders={false} restitution={0.2} friction={1}>
             {/* Front */}
             <CuboidCollider
                 args={[

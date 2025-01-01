@@ -1,9 +1,15 @@
-import type { Controls, Callback } from "@keyboard/types";
+import type { Controls, Callback, KeyboardState } from "@keyboard/types";
 
 class KeyboardControlsEvent {
     private static _instance: KeyboardControlsEvent;
     private readonly _keys: Map<Controls, Callback[]> = new Map();
     private _tempFunctions: Map<string, ((event: KeyboardEvent) => void) | null> = new Map();
+    private _state: KeyboardState = {
+        forward: false,
+        backward: false,
+        left: false,
+        right: false,
+    };
 
     constructor() {
         if (KeyboardControlsEvent._instance) {
@@ -17,6 +23,10 @@ class KeyboardControlsEvent {
         return KeyboardControlsEvent._instance;
     }
 
+    public get keys(): KeyboardState {
+        return this._state;
+    }
+
     public subscribe(): void {
         this._tempFunctions.set("keydown", (event: KeyboardEvent) => {
             const key = event.key;
@@ -24,15 +34,19 @@ class KeyboardControlsEvent {
             switch (key) {
                 case "w":
                     this._keys.get("forward")?.forEach(cb => cb(true));
+                    this._state.forward = true;
                     break;
                 case "a":
                     this._keys.get("left")?.forEach(cb => cb(true));
+                    this._state.left = true;
                     break;
                 case "s":
                     this._keys.get("backward")?.forEach(cb => cb(true));
+                    this._state.backward = true;
                     break;
                 case "d":
                     this._keys.get("right")?.forEach(cb => cb(true));
+                    this._state.right = true;
                     break;
             }
         });
@@ -43,15 +57,19 @@ class KeyboardControlsEvent {
             switch (key) {
                 case "w":
                     this._keys.get("forward")?.forEach(cb => cb(false));
+                    this._state.forward = false;
                     break;
                 case "a":
                     this._keys.get("left")?.forEach(cb => cb(false));
+                    this._state.left = false;
                     break;
                 case "s":
                     this._keys.get("backward")?.forEach(cb => cb(false));
+                    this._state.backward = false;
                     break;
                 case "d":
                     this._keys.get("right")?.forEach(cb => cb(false));
+                    this._state.right = false;
                     break;
             }
         });
