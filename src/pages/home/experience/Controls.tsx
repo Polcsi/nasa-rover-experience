@@ -24,7 +24,9 @@ const Controls = () => {
                             true,
                         )
                         .then(() => {
-                            cameracontrolsRef.current.enabled = false;
+                            if (cameracontrolsRef.current) {
+                                cameracontrolsRef.current.enabled = false;
+                            }
                         });
                 }
                 gl.domElement.classList.remove("grab");

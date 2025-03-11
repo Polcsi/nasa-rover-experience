@@ -21,12 +21,21 @@ type WheelJointProps = {
 
 const WheelJoint = ({ body, wheel, bodyAnchor, wheelAnchor, rotationAxis }: WheelJointProps) => {
     const joint = useRevoluteJoint(body, wheel, [bodyAnchor, wheelAnchor, rotationAxis]);
+    const [, , getKeys] = useKeyboardContext();
 
-    // useFrame(() => {
-    //     if (joint.current) {
-    //         joint.current.configureMotorVelocity(20, 10);
-    //     }
-    // });
+    useFrame(() => {
+        if (joint.current) {
+            const { forward, backward, right, left } = getKeys();
+
+            if (forward) {
+                joint.current.configureMotorVelocity(20, 5);
+            }
+
+            if (backward) {
+                joint.current.configureMotorVelocity(-20, 5);
+            }
+        }
+    });
 
     return null;
 };
@@ -92,8 +101,9 @@ const RoverHitbox = () => {
                 canSleep={false}
                 restitution={0.2}
                 friction={1}
+                angularDamping={1}
             >
-                <CuboidCollider args={[0.7, 0.3, 1.4]} />
+                <CuboidCollider args={[0.7, 0.1, 1.4]} />
             </RigidBody>
             {wheelPositions.map((position, index) => (
                 <RigidBody
@@ -116,7 +126,7 @@ const RoverHitbox = () => {
                     wheel={wheelRefs.current[index]}
                     bodyAnchor={wheelPosition}
                     wheelAnchor={[0, 0, 0]}
-                    rotationAxis={[0, 0, 1]}
+                    rotationAxis={[1, 0, 0]}
                 />
             ))}
         </group>
